@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Memo - Vanguard Roster Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .submit-button, .back-button, .add-signature-button {
+            background-color: red;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .submit-button:hover, .back-button:hover, .add-signature-button:hover {
+            background-color: darkred;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0,0,0);
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        #signatureCanvas {
+            border: 1px solid #ccc;
+            width: 100%;
+            height: 100px;
+            background-color: #fff;
+        }
+
+        #signaturePreview {
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Company Memo</h1>
+
+        <form id="memo-form">
+            <div class="form-group">
+                <label for="memo-title">Memo Title:</label>
+                <input type="text" id="memo-title" name="memo-title" placeholder="Enter memo title" required>
+            </div>
+
+            <div class="form-group">
+                <label for="memo-description">Memo Description:</label>
+                <textarea id="memo-description" name="memo-description" rows="4" placeholder="Enter memo details" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="memo-priority">Priority Level:</label>
+                <select id="memo-priority" name="memo-priority" required>
+                    <option value="">Select priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="memo-date">Memo Date:</label>
+                <input type="date" id="memo-date" name="memo-date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="memo-department">Department:</label>
+                <select id="memo-department" name="memo-department" required>
+                    <option value="">Select department</option>
+                    <option value="security">Security</option>
+                    <option value="admin">Admin</option>
+                    <option value="operations">Operations</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="memo-author">Author Name:</label>
+                <input type="text" id="memo-author" name="memo-author" placeholder="Your name" required>
+            </div>
+
+            <div class="form-group">
+                <button type="button" class="add-signature-button" id="add-signature-btn">Add Signature</button>
+                <div id="signaturePreview">
+                    <h4>Signature Preview:</h4>
+                    <img id="signatureImg" src="" alt="Signature" />
+                </div>
+            </div>
+        </form>
+
+        <div class="button-container">
+            <button class="back-button" onclick="goBack()">Back</button>
+            <button type="button" class="submit-button" onclick="createMemo()">Submit</button>
+        </div>
+    </div>
+
+    <!-- Signature Modal -->
+    <div id="signatureModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="close-modal">&times;</span>
+            <h2>Draw Your Signature</h2>
+            <canvas id="signatureCanvas"></canvas>
+            <button id="done-btn">Done</button>
+            <button id="clear-btn">Clear</button>
+        </div>
+    </div>
+
+    <script>
+        // Go back to the index page
+        function goBack() {
+            window.location.href = "index.html";
+        }
+
+        // Handle memo creation and PDF download
+        function createMemo() {
+            // Get form values
+            const memoTitle = document.getElementById('memo-title').value;
+            const memoDescription = document.getElementById('memo-description').value;
+            const memoPriority = document.getElementById('memo-priority').value;
+            const memoDate = document.getElementById('memo-date').value;
+            const memoDepartment = document.getElementById('memo-department').value;
+            const memoAuthor = document.getElementById('memo-author').value;
+
+            // Check if form fields are valid (basic validation)
+            if (!memoTitle || !memoDescription || !memoPriority || !memoDate || !memoDepartment || !memoAuthor) {
+                alert("Please fill out all fields.");
+                return;
+            }
+
+            // Generate PDF using jsPDF
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            // Add content to the PDF
+            doc.setFontSize(50);
+            doc.text("MEMO", 20, 20);
+            doc.setFontSize(16);
+            doc.text("Security Company Name", 20, 30);
+
+            doc.setFontSize(14);
+            doc.text(`Date: ${memoDate}`, 20, 50);
+            doc.text(`Priority: ${memoPriority}`, 20, 60);
+            doc.text(`Department: ${memoDepartment}`, 20, 70);
+            doc.text(`Subject: ${memoTitle}`, 20, 80);
+
+            doc.setFontSize(12);
+            doc.text("Memo Details:", 20, 90);
+            doc.text(memoDescription, 20, 100, { maxWidth: 170 });
+
+            doc.setFontSize(14);
+            doc.text(memoAuthor, 20, 140); // Only the author's name
+
+            // Add Signature Image if available
+            const signatureImg = document.getElementById('signatureImg').src;
+            if (signatureImg) {
+                doc.addImage(signatureImg, 'PNG', 20, 150, 50, 20); // Directly add the signature image
+            }
+
+            // Save the PDF
+            doc.save(`${memoTitle}.pdf`);
+        }
+
+        // Signature functionality
+        const canvas = document.getElementById('signatureCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = 300;  // Set canvas width
+        canvas.height = 100; // Set canvas height
+
+        let drawing = false;
+
+        // Handle drawing on the canvas
+        canvas.addEventListener('mousedown', () => {
+            drawing = true;
+            ctx.beginPath();
+        });
+
+        canvas.addEventListener('mouseup', () => {
+            drawing = false;
+            ctx.closePath();
+        });
+
+        canvas.addEventListener('mousemove', (event) => {
+            if (drawing) {
+                ctx.lineTo(event.offsetX, event.offsetY);
+                ctx.stroke();
+            }
+        });
+
+        // Handle adding signature to the memo
+        document.getElementById('add-signature-btn').addEventListener('click', () => {
+            document.getElementById('signatureModal').style.display = "block";
+        });
+
+        document.getElementById('close-modal').addEventListener('click', () => {
+            document.getElementById('signatureModal').style.display = "none";
+        });
+
+        document.getElementById('done-btn').addEventListener('click', () => {
+            const imgData = canvas.toDataURL('image/png');
+            document.getElementById('signatureImg').src = imgData;
+            document.getElementById('signaturePreview').style.display = "block";
+            document.getElementById('signatureModal').style.display = "none";
+        });
+
+        document.getElementById('clear-btn').addEventListener('click', () => {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        });
+    </script>
+</body>
+</html>

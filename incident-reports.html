@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incident Reports - Vanguard Roster Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .navbar {
+            width: 200px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+            height: 100vh;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: black;
+            display: block;
+            padding: 10px 0;
+        }
+
+        .navbar a:hover {
+            background-color: #f0f0f0;
+        }
+
+        .content {
+            flex: 1;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .search-container {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+
+        .create-report-button {
+            background-color: red;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+
+        .create-report-button:hover {
+            background-color: darkred;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ccc;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <h2>Navigation</h2>
+        <a href="index.html">Home</a>
+        <a href="memo.html">Create Memo</a>
+        <a href="incident_reports.html">Incident Reports</a>
+        <a href="#">Settings</a>
+        <a href="#">Logout</a>
+    </div>
+
+    <div class="content">
+        <h1>Incident Reports</h1>
+
+        <div class="search-container">
+            <input type="text" id="search" placeholder="Search reports...">
+            <button class="create-report-button" onclick="location.href='create_report.html'">Create Incident Report</button>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Date</th>
+                    <th>Venue</th>
+                    <th>CC Number</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+            <tbody id="incident-reports-list">
+                <tr onclick="location.href='incident_report_1.html'">
+                    <td>John Doe</td>
+                    <td>2024-10-01</td>
+                    <td>Main Office</td>
+                    <td>12345</td>
+                    <td>Incident description here...</td>
+                </tr>
+                <tr onclick="location.href='incident_report_2.html'">
+                    <td>Jane Smith</td>
+                    <td>2024-10-05</td>
+                    <td>Warehouse</td>
+                    <td>67890</td>
+                    <td>Another incident description...</td>
+                </tr>
+                <!-- More rows as needed -->
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

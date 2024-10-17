@@ -1,0 +1,166 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+header {
+    background-color: #222;
+    padding: 15px 0;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 30px;
+}
+
+.nav-left {
+    list-style-type: none;
+    display: flex;
+}
+
+.nav-left li {
+    margin-right: 25px;
+}
+
+.nav-left li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.nav-left li a:hover {
+    text-decoration: underline;
+}
+
+.nav-right {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+}
+
+.nav-right .dropdown {
+    cursor: pointer;
+}
+
+.nav-right .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    min-width: 150px;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.nav-right .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.nav-right .dropdown-content a:hover {
+    background-color: #f1f1f1;
+}
+
+.nav-right .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+main {
+    padding: 40px 30px;
+}
+
+#home h1 {
+    font-size: 28px;
+    color: #222;
+    margin-bottom: 40px;
+}
+
+.dashboard {
+    display: flex;
+    justify-content: space-between;
+}
+
+.box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 22%;
+    text-align: center;
+}
+
+.box h2 {
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.red-border {
+    border-top: 5px solid red;
+}
+
+.yellow-border {
+    border-top: 5px solid yellow;
+}
+
+.blue-border {
+    border-top: 5px solid blue;
+}
+
+.green-border {
+    border-top: 5px solid green;
+}
+
+.big-number {
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.button-group {
+    margin-top: 40px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.action-button {
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 15px 25px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.action-button:hover {
+    background-color: darkred;
+}
+
+.action-button:focus {
+    outline: none;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

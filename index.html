@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vanguard Roster Solutions - Admin</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul class="nav-left">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#roster">Roster</a></li>
+                <li><a href="incident-reports.html">Incident Reports</a></li>
+                <li><a href="#employees">Employees</a></li>
+                <li><a href="#clients">Clients</a></li>
+                <li><a href="#documents">Documents</a></li>
+                <li><a href="#license">License</a></li>
+            </ul>
+            <ul class="nav-right">
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">Company Name</a>
+                    <div class="dropdown-content">
+                        <a href="#profile">Profile</a>
+                        <a href="#settings">Settings</a>
+                        <a href="#logout">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home">
+            <h1><span id="company-name">Placeholder Company</span> Security Portal</h1>
+            <div class="dashboard">
+                <div class="box red-border">
+                    <h2>Total Reports</h2>
+                    <p class="big-number" id="total-reports">0</p>
+                </div>
+                <div class="box yellow-border">
+                    <h2>Total Incidents</h2>
+                    <p class="big-number" id="total-incidents">0</p>
+                </div>
+                <div class="box blue-border">
+                    <h2>Tasks</h2>
+                    <p class="big-number" id="tasks">0</p>
+                </div>
+                <div class="box green-border">
+                    <h2>Health</h2>
+                    <p class="big-number" id="health">100%</p>
+                </div>
+            </div>
+
+            <div class="button-group">
+            <button class="action-button" id="run-report-btn">Run Report</button>
+            <a href="memo.html">
+            <button class="action-button" id="create-memo-btn">Create Memo</button>
+          </a>
+            <button class="action-button" id="statistics-btn">Statistics</button>
+        </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Vanguard Roster Solutions. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>

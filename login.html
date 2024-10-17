@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Login</title>
+    <style>
+        /* Basic reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Background styling */
+        body {
+            background-color: #1e1e1e;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.2) 1px, transparent 1px), 
+                              radial-gradient(circle, rgba(255, 255, 255, 0.2) 1px, transparent 1px);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
+        }
+
+        /* Adding connecting lines between hexagons */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: linear-gradient(120deg, rgba(255, 0, 0, 0.5) 1px, transparent 1px),
+                              linear-gradient(60deg, rgba(255, 0, 0, 0.5) 1px, transparent 1px);
+            background-size: 60px 35px;
+            z-index: 0;
+        }
+
+        /* Title above login box */
+        .main-title {
+            text-align: center;
+            color: #fff;
+            font-size: 40px;
+            margin-top: 50px;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+        }
+
+        /* Centered Login Box */
+        .login-container {
+            position: relative;
+            margin: 0 auto;
+            width: 350px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.7);
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            margin-top: 150px; /* Moves the box down */
+            z-index: 1;
+        }
+
+        /* Title */
+        h1 {
+            text-align: center;
+            font-size: 30px;
+            margin-bottom: 30px;
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.9);
+        }
+
+        /* Login Form */
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-weight: bold;
+            color: #ff0000;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        /* Submit Button */
+        .submit-button {
+            background-color: #ff0000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-button:hover {
+            background-color: #cc0000;
+        }
+
+        /* Input text color */
+        input::placeholder {
+            color: #ccc;
+        }
+
+        /* Small text under the login box */
+        .help-text {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 12px;
+            color: #fff;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="main-title">Vanguard Solutions</div>
+
+    <div class="login-container">
+        <h1>Company Login</h1>
+        <form class="login-form" action="admin_dashboard.html">
+            <div class="form-group">
+                <label for="company-number">Company Number</label>
+                <input type="text" id="company-number" name="company-number" placeholder="Enter company number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="postcode">Post Code</label>
+                <input type="text" id="postcode" name="postcode" placeholder="Enter post code" required>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="Enter password" required>
+            </div>
+
+            <button type="submit" class="submit-button">Login</button>
+        </form>
+        <div class="help-text">Please contact us for any issues logging in.</div>
+    </div>
+</body>
+</html>
