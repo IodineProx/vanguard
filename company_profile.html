@@ -11,6 +11,8 @@
       padding: 0;
       display: flex;
       background-color: #f4f4f4;
+      height: 100vh;
+      overflow: hidden; /* Prevents entire page from scrolling */
     }
 
     /* Sidebar styles */
@@ -20,6 +22,7 @@
       padding-top: 20px;
       height: 100vh;
       position: fixed;
+      overflow-y: auto; /* Enable scrolling for the sidebar */
     }
 
     .sidebar a {
@@ -44,7 +47,9 @@
     .main-content {
       margin-left: 250px;
       padding: 20px;
-      width: 100%;
+      width: calc(100% - 250px);
+      height: 100vh;
+      overflow-y: auto; /* Ensure the main content scrolls if needed */
     }
 
     .main-content h1 {
@@ -56,12 +61,36 @@
       font-size: 18px;
       color: #333;
     }
+
+    /* Buttons for manual scrolling */
+    .scroll-btns {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+    }
+
+    .scroll-btns button {
+      background-color: #f00;
+      color: white;
+      border: none;
+      padding: 10px;
+      cursor: pointer;
+      margin-bottom: 10px;
+      border-radius: 5px;
+    }
+
+    .scroll-btns button:hover {
+      background-color: #ff4d4d;
+    }
+
   </style>
 </head>
 <body>
   
   <!-- Sidebar -->
-  <div class="sidebar">
+  <div class="sidebar" id="sidebar">
     <a href="#" class="active">Placeholder_business_name</a>
     <a href="#">Payroll</a>
     <a href="#">Documents</a>
@@ -88,6 +117,30 @@
     <p>Welcome to the profile page for Placeholder_business_name. Here you can manage all aspects of your business using Vanguard Roster Solutions. Use the tabs on the left to access specific business functions like payroll, billing, employees, and more.</p>
     <p>Make sure to regularly review your documents, audit logs, and security settings to keep everything running smoothly.</p>
   </div>
+
+  <!-- Scroll Buttons -->
+  <div class="scroll-btns">
+    <button onclick="scrollSidebar(-100)">Scroll Up</button>
+    <button onclick="scrollSidebar(100)">Scroll Down</button>
+  </div>
+
+  <script>
+    // JavaScript function to scroll the sidebar
+    function scrollSidebar(amount) {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.scrollBy({
+        top: amount, // Scroll amount in pixels (positive for down, negative for up)
+        behavior: 'smooth' // Smooth scrolling animation
+      });
+    }
+
+    // Add mouse wheel scrolling for the sidebar
+    document.getElementById('sidebar').addEventListener('wheel', function(event) {
+      event.preventDefault(); // Prevent the default scroll behavior
+      const delta = Math.sign(event.deltaY); // Detect scroll direction
+      scrollSidebar(delta * 100); // Scroll the sidebar by 100px for each wheel movement
+    });
+  </script>
 
 </body>
 </html>
