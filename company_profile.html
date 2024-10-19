@@ -12,7 +12,6 @@
       display: flex;
       background-color: #f4f4f4;
       height: 100vh;
-      overflow: hidden; /* Prevents entire page from scrolling */
     }
 
     /* Sidebar styles */
@@ -22,7 +21,7 @@
       padding-top: 20px;
       height: 100vh;
       position: fixed;
-      overflow-y: auto; /* Enable scrolling for the sidebar */
+      overflow-y: auto; /* Enable scrolling */
     }
 
     .sidebar a {
@@ -47,8 +46,7 @@
     .main-content {
       margin-left: 250px;
       padding: 20px;
-      width: calc(100% - 250px);
-      height: 100vh;
+      width: 100%;
       overflow-y: auto; /* Ensure the main content scrolls if needed */
     }
 
@@ -62,27 +60,69 @@
       color: #333;
     }
 
-    /* Buttons for manual scrolling */
-    .scroll-btns {
-      display: flex;
-      flex-direction: column;
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
+    /* Company info box styles */
+    .info-box {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 20px 0;
     }
 
-    .scroll-btns button {
+    .info-box h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      color: #333;
+    }
+
+    .info-box p {
+      font-size: 18px;
+      margin: 5px 0;
+      color: #666;
+    }
+
+    /* Button styles */
+    .create-cv-btn {
       background-color: #f00;
       color: white;
       border: none;
-      padding: 10px;
+      padding: 10px 20px;
       cursor: pointer;
-      margin-bottom: 10px;
       border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+      position: relative; /* Position relative for dropdown */
     }
 
-    .scroll-btns button:hover {
+    .create-cv-btn:hover {
       background-color: #ff4d4d;
+    }
+
+    /* Dropdown menu styles */
+    .dropdown {
+      display: none;
+      position: absolute;
+      background-color: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      z-index: 1;
+      width: 150px; /* Set a width for the dropdown */
+    }
+
+    .dropdown button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background-color: white;
+      text-align: left;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .dropdown button:hover {
+      background-color: #f0f0f0;
     }
 
   </style>
@@ -90,7 +130,7 @@
 <body>
   
   <!-- Sidebar -->
-  <div class="sidebar" id="sidebar">
+  <div class="sidebar">
     <a href="#" class="active">Placeholder_business_name</a>
     <a href="#">Payroll</a>
     <a href="#">Documents</a>
@@ -114,32 +154,48 @@
   <!-- Main Content -->
   <div class="main-content">
     <h1>Placeholder_business_name</h1>
+    <div class="info-box">
+      <h2>Basic Company Information</h2>
+      <p><strong>Company Name:</strong> Placeholder Business Name</p>
+      <p><strong>Company Address:</strong> 123 Main Street, City, Country</p>
+      <p><strong>Phone Number:</strong> (123) 456-7890</p>
+      <p><strong>Email Address:</strong> contact@placeholder.com</p>
+      <button class="create-cv-btn" onclick="toggleDropdown()">Create CV</button>
+      <div class="dropdown" id="cvDropdown">
+        <button onclick="copyCV()">Copy CV</button>
+        <button onclick="sendEmail()">Send Email</button>
+      </div>
+    </div>
     <p>Welcome to the profile page for Placeholder_business_name. Here you can manage all aspects of your business using Vanguard Roster Solutions. Use the tabs on the left to access specific business functions like payroll, billing, employees, and more.</p>
     <p>Make sure to regularly review your documents, audit logs, and security settings to keep everything running smoothly.</p>
   </div>
 
-  <!-- Scroll Buttons -->
-  <div class="scroll-btns">
-    <button onclick="scrollSidebar(-100)">Scroll Up</button>
-    <button onclick="scrollSidebar(100)">Scroll Down</button>
-  </div>
-
   <script>
-    // JavaScript function to scroll the sidebar
-    function scrollSidebar(amount) {
-      const sidebar = document.getElementById('sidebar');
-      sidebar.scrollBy({
-        top: amount, // Scroll amount in pixels (positive for down, negative for up)
-        behavior: 'smooth' // Smooth scrolling animation
+    function toggleDropdown() {
+      const dropdown = document.getElementById("cvDropdown");
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    }
+
+    function copyCV() {
+      // Implement copy functionality (e.g., using clipboard API or alert)
+      navigator.clipboard.writeText("CV for Placeholder Business Name").then(() => {
+        alert("CV copied to clipboard!");
+      }).catch(err => {
+        console.error("Error copying text: ", err);
       });
     }
 
-    // Add mouse wheel scrolling for the sidebar
-    document.getElementById('sidebar').addEventListener('wheel', function(event) {
-      event.preventDefault(); // Prevent the default scroll behavior
-      const delta = Math.sign(event.deltaY); // Detect scroll direction
-      scrollSidebar(delta * 100); // Scroll the sidebar by 100px for each wheel movement
-    });
+    function sendEmail() {
+      window.location.href = 'mailto:contact@placeholder.com?subject=CV Request&body=Please find attached the CV for Placeholder Business Name.';
+    }
+
+    // Close dropdown if clicked outside
+    window.onclick = function(event) {
+      if (!event.target.matches('.create-cv-btn')) {
+        const dropdown = document.getElementById("cvDropdown");
+        dropdown.style.display = "none";
+      }
+    };
   </script>
 
 </body>
